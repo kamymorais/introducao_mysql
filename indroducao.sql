@@ -51,10 +51,18 @@ preco DOUBLE (6,2)
 
 #INCLUIR UMA INFORMAÇÃO NA TABELA 
 ALTER TABLE produto ADD quantidade INT ; 
+
+#ALTERAR UMA COLUNA 
+ALTER TABLE produto DROP COLUMN preco ; 
+ALTER TABLE produto ADD preco_produto INT ; 
 DESC produto ; 
 
+#OOOOOU ALTERAR SEM PERDER DADOS 
 
+ALTER TABLE produto RENAME COLUMN nome_produto to nomes_produtos; 
+DESC produto ; 
 
+ 
  
 
 #O CÓDIGO ABAIXO É PARA APAGAR A TABELA 
