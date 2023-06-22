@@ -29,8 +29,33 @@ INSERT INTO atividade_sql VALUES ( "THÉO", 10 , "61999875033", "RIACHO FUNDO 2"
 SELECT * FROM atividade_sql ; 
 
 #LIKE COM % É PARA FILTRAR UMA PARTE 
-SELECT COUNT(*) FROM atividade_sql WHERE endereco LIKE "%RIACHO FUNDO 3%" ; 
+SELECT COUNT(*) FROM atividade_sql WHERE endereco LIKE "%DF%" ; 
 SELECT * FROM atividade_sql WHERE idade = 30 ; 
+
+SELECT COUNT(*) AS quantidade, nome FROM atividade_sql WHERE idade > 15 GROUP BY nome ; 
+SELECT nome FROM atividade_sql WHERE email IS NULL;  
+
+#O CÓDIGO ABAIXO É A PARA FUNCIONAR O UPDATE 
+SET SQL_SAFE_UPDATES = 0 ; 
+UPDATE atividade_sql SET email = "meuemail@hotmail.com" WHERE nome = "KAMYLLA";
+SELECT nome, email FROM atividade_sql WHERE nome = "KAMYLLA" ;
+SELECT * FROM atividade_sql ; 
+
+#COLOCAR EM ORDEM ALFABETICA 
+SELECT * FROM atividade_sql ORDER BY nome ASC ; 
+
+CREATE TABLE produto (
+nome_produto VARCHAR (30),
+preco DOUBLE (6,2) 
+);
+
+#INCLUIR UMA INFORMAÇÃO NA TABELA 
+ALTER TABLE produto ADD quantidade INT ; 
+DESC produto ; 
+
+
+
+ 
 
 #O CÓDIGO ABAIXO É PARA APAGAR A TABELA 
 DROP TABLE atividade_sql;
