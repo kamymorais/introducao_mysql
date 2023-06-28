@@ -73,6 +73,10 @@ INSERT INTO pessoa2 VALUES
 (null, "Ademir" , "Viana" , "245.070.855.97" , "masculino" , 3) ,
 (null, "Théo" , "Viana" , "059.458.332-85" , "masculino" , 4) ;
 
+# Mostrar as duas tabelas 
+
+SELECT * FROM endereco INNER JOIN pessoa2 on endereco.idEndereco = pessoa2.id_endereco ;
+
 CREATE TABLE telefone (
 idTelefone INTEGER PRIMARY KEY AUTO_INCREMENT ,
 ddd VARCHAR (3),
@@ -90,8 +94,15 @@ INSERT INTO telefone VALUES (null, "061" , " 9 9987-5006" , 1),
 
 SELECT * FROM endereco ;
 SELECT * FROM pessoa2; 
+
+
  
- SELECT* FROM endereco INNER JOIN pessoa2 ON endereco.idEndereco = pessoa2.id_endereco AND telefone.idTelefone = pessoa2.id_telefone ; 
- ; 
+/* Para a tabela está na 3fn ela precisa está de acordo com a 1 e 2FN, não existir dependentes transitivos. 
+Nenhum atributo não chave não pode depender de outro atributo não chave. */ 
 
-
+CREATE TABLE produto (
+idProduto INTEGER PRIMARY KEY AUTO_INCREMENT ,
+nome_produto VARCHAR (50),
+quantidade INT,
+valor DOUBLE
+);
