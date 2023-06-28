@@ -1,3 +1,4 @@
+
 /* NORMALIZAÇÃO DE TABELA 
 Para que uma tabela esteja na 1FN é necessário que não existam grupo de valores repetidos, seus valores devem ser todos atomicos (únicos), exemplo nome e sobrenome e a tabela deve possuir 
 um identificador que identifique o dado como único
@@ -37,4 +38,60 @@ INSERT INTO pessoa VALUES (null, "Kamylla" , "Morais", 26 , "feminino" , "kmvian
 "Casa" , "QC" , "03" , "061" , "3333-4653" , " 9 9618-5006" , null , null );
 
 SELECT * FROM pessoa ; 
+
+# Para está na segunda forma nominal os atributos devem depender da chave primaria em sua totalidade, não apenas parte dela
+#Interação com duas tabelas... 
+
+CREATE TABLE endereco (
+idEndereco INTEGER PRIMARY KEY AUTO_INCREMENT ,
+cep VARCHAR (13),
+bairro VARCHAR (100),
+cidade VARCHAR (100),
+uf VARCHAR (2)
+);
+
+CREATE TABLE pessoa2 (
+idPessoa INTEGER PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR (50),
+sobrenome VARCHAR (50),
+cpf VARCHAR (14) NOT NULL UNIQUE ,
+sexo VARCHAR (10) ,
+id_endereco INTEGER ,
+#FORMALIZANDO AS DUAS TABELAS
+CONSTRAINT fk_id_endereco_endereco FOREIGN KEY (id_endereco) REFERENCES endereco (idEndereco)
+);
+
+INSERT INTO endereco VALUES 
+(null , "71.881-123" , "Riacho Fundo 02" , "Brasília" , "DF" ),
+(null , "71.881-129" , "Riacho Fundo 02" , "Brasília" , "DF" ),
+(null , "71.881-135" , "Riacho Fundo 02" , "Brasília" , "DF" ),
+(null , "71.881-999" , "Riacho Fundo 02" , "Brasília" , "DF" );
+
+INSERT INTO pessoa2 VALUES
+(null , "Herculles" , "Morais" , "059.457.331-99" , "masculino", 1 ) ,
+(null, "Marlucia" , "Viana" , "393.077.395-98" , "feminino" , 2) ,
+(null, "Ademir" , "Viana" , "245.070.855.97" , "masculino" , 3) ,
+(null, "Théo" , "Viana" , "059.458.332-85" , "masculino" , 4) ;
+
+CREATE TABLE telefone (
+idTelefone INTEGER PRIMARY KEY AUTO_INCREMENT ,
+ddd VARCHAR (3),
+numero VARCHAR (15),
+id_pessoa INTEGER ,
+#Fazer referência para tabela pessoa para adicionar mais de um número para um pessoa
+CONSTRAINT fk_id_pessoa_pessoa FOREIGN KEY (id_pessoa) REFERENCES pessoa2 (idPessoa)
+);
+
+INSERT INTO telefone VALUES (null, "061" , " 9 9987-5006" , 1),
+(null, "061" , " 9 9987-5006" ,2),
+(null, "061" , " 9 9987-5005",3),
+(null, "061" , " 9 9987-5005",4),
+(null, "061" , " 9 9987-5004",4);
+
+SELECT * FROM endereco ;
+SELECT * FROM pessoa2; 
+ 
+ SELECT* FROM endereco INNER JOIN pessoa2 ON endereco.idEndereco = pessoa2.id_endereco AND telefone.idTelefone = pessoa2.id_telefone ; 
+ ; 
+
 
